@@ -7,13 +7,31 @@
 
 import UIKit
 
-class baseScreen: UIViewController {
+class baseScreen: UIViewController, HogwartsHouseSelectionDelegate {
+    
 
+    @IBOutlet weak var baseImage: UIImageView!
+    @IBOutlet weak var selectionButton: UIButton!
+    @IBOutlet weak var selectionName: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.baseImage.image = UIImage(named: "hogwartsLogo")!
     }
 
-
+    
+    @IBAction func bottonPressed(_ sender: UIButton) {
+        let selectionVC = storyboard?.instantiateViewController(withIdentifier: "SelectionScene") as! SelectionScene
+        selectionVC.selectionDelegate = self
+        present(selectionVC, animated: true, completion: nil)
+    }
+    
+    func didMakeChoise(color: UIColor, name: String, image: String) {
+        selectionName.text = name
+        selectionName.textColor = .black
+        view.backgroundColor = color
+        self.baseImage.image = UIImage(named: image)
+    }
+    
 }
 
